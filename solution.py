@@ -32,6 +32,11 @@ def find_top_10_words(words):
     
     return top_words
 
+def write_file(output, top_words):
+    with open(output, "w") as file:
+        for word, count in top_words:
+            file.write(f"{word}-{count}\n")
+
 if __name__ == "__main__":
     contents = read_file("input.txt")
     print(contents)
@@ -39,3 +44,4 @@ if __name__ == "__main__":
     print(words)
     top_words = find_top_10_words(words)
     print(top_words)
+    write_file("output.txt", top_words)
