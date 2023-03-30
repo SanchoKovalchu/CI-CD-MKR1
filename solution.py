@@ -18,8 +18,24 @@ def split_into_words(contents):
             words.append(word)
     return words
 
+def find_top_10_words(words):
+    word_count = {}
+    # count the occurrences of each word in the list
+    for word in words:
+        if word in word_count:
+            word_count[word] += 1
+        else:
+            word_count[word] = 1
+    
+    # sort the words by their count in descending order
+    top_words = sorted(word_count.items(), key=lambda x: x[1], reverse=True)[:10]
+    
+    return top_words
+
 if __name__ == "__main__":
     contents = read_file("input.txt")
     print(contents)
     words = split_into_words(contents)
     print(words)
+    top_words = find_top_10_words(words)
+    print(top_words)
