@@ -1,4 +1,5 @@
 import re
+
 def read_file(file_name):
     # Open the input file
     with open(file_name, 'r') as f:
@@ -6,17 +7,21 @@ def read_file(file_name):
         contents = clean_text(f.readlines())
     return contents
 
+
 def clean_text(text: list[str]) -> list[str]:
     return [line.rstrip('\n') for line in text]
+
 
 def split_into_words(contents):
     words = []
     for line in contents:
         line_words = re.split(r'[-+#, .!?():;/]+', line)
-        line_words.remove('')
+        if '' in line_words:
+            line_words.remove('')
         for word in line_words:
             words.append(word)
     return words
+
 
 def find_top_10_words(words):
     word_count = {}
@@ -32,6 +37,7 @@ def find_top_10_words(words):
     
     return top_words
 
+
 def write_file(output, top_words):
     with open(output, "w") as file:
         for word, count in top_words:
@@ -39,9 +45,6 @@ def write_file(output, top_words):
 
 if __name__ == "__main__":
     contents = read_file("input.txt")
-    print(contents)
     words = split_into_words(contents)
-    print(words)
     top_words = find_top_10_words(words)
-    print(top_words)
     write_file("output.txt", top_words)
